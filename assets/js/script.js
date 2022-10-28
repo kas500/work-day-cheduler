@@ -22,6 +22,7 @@ $.each(workHours, function(index, hour){
     var $divRow = $("<div>", {"class": "row time-block"});
     $divRow.append($("<div>",{"class": "hour col-1 text-right pr-0 d-flex justify-content-end align-items-center"}).text(hour));
     $divRow.append($("<textarea>",{"class": "col-10 "+colorTime+" text-left description"}));
-    $divRow.append($("<div>",{"class": "col-1 align-item-center d-flex justify-content-center align-items-center saveBtn"}).append($("<i>", {"class": "fa fa-save my-4"})));
+    $divRow.append($("<div>",{"class": "col-1 align-item-center d-flex justify-content-center align-items-center saveBtn"})
+    .append($("<i>", {"class": "fa fa-save my-4"})));
     $divContainer.append($divRow);
 });
