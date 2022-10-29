@@ -30,7 +30,7 @@ $.each(workHours, function(index, hour){
     colorTime = (index<indexOfCurrentTime)?"past":(index>indexOfCurrentTime)?"future":"present";
     var $divRow = $("<div>", {"class": "row time-block"});
     $divRow.append($("<div>",{"class": "hour col-1 text-right pr-0 d-flex justify-content-end align-items-center"}).text(hour));
-    $divRow.append($("<textarea>",{"class": "col-10 "+colorTime+" text-left description", "id" : index})
+    $divRow.append($("<textarea>",{"class": "col-10 "+colorTime+" text-left description text-dark", "id" : index})
     .val(getDatafromLocStorage(index)!==null?getDatafromLocStorage(index):""));
     $divRow.append($("<div>",{"class": "col-1 align-item-center d-flex justify-content-center align-items-center saveBtn"})
     .append($("<i>", {"class": "fa fa-save my-4"})));
