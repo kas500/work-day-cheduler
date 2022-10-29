@@ -69,7 +69,6 @@ function getDatafromLocStorage(index){
 function addToLocalStorage(taskEl){
     tasksArr = (JSON.parse(localStorage.getItem("tasks")) != null) ? JSON.parse(localStorage.getItem("tasks")):[];
     if((tasksArr.some(obj => obj.id === taskEl.id))){
-        console.log("exist");
         tasksArr.find(obj => obj.id === taskEl.id).text = taskEl.text; 
      }
      else {
