@@ -55,6 +55,7 @@ $("i").click(function(ev){
         
 });
 
+//get data from local storage
 function getDatafromLocStorage(index){
     var tasksArr = JSON.parse(localStorage.getItem("tasks"));
         
@@ -66,6 +67,7 @@ function getDatafromLocStorage(index){
         
 }
 
+//add data to local storage
 function addToLocalStorage(taskEl){
     tasksArr = (JSON.parse(localStorage.getItem("tasks")) != null) ? JSON.parse(localStorage.getItem("tasks")):[];
     if((tasksArr.some(obj => obj.id === taskEl.id))){
