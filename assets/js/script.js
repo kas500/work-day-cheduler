@@ -38,6 +38,18 @@ $.each(workHours, function(index, hour){
 
 // change save icon color, show message by click and save to local storage
 $("i").click(function(ev){
+    var taskEl = {
+        id: $(ev.currentTarget).parent().prev().attr("id"),
+        text: $(ev.currentTarget).parent().prev().val()
+    }
+    
+    if(tasksArr.some(obj => obj.id === taskEl.id)){
+       tasksArr.find(obj => obj.id === taskEl.id).text = $(ev.currentTarget).parent().prev().val(); 
+    }
+    else tasksArr.push(taskEl); 
+    
+    addToLocalStorage(tasksArr);
+
     ev.currentTarget.style.color = "black";
     $saveMessage.addClass("d-block");
     setTimeout(function() {
@@ -46,3 +58,11 @@ $("i").click(function(ev){
       }, 400)
         
 });
+
+function getDatafromLocStorage(){
+
+}
+
+function addToLocalStorage(tasksArr){
+    localStorage.setItem("tasks",JSON.stringify(tasksArr));
+}
