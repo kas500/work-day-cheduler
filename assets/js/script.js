@@ -30,7 +30,8 @@ $.each(workHours, function(index, hour){
     colorTime = (index<indexOfCurrentTime)?"past":(index>indexOfCurrentTime)?"future":"present";
     var $divRow = $("<div>", {"class": "row time-block"});
     $divRow.append($("<div>",{"class": "hour col-1 text-right pr-0 d-flex justify-content-end align-items-center"}).text(hour));
-    $divRow.append($("<textarea>",{"class": "col-10 "+colorTime+" text-left description", "id" : index}).val(""));
+    $divRow.append($("<textarea>",{"class": "col-10 "+colorTime+" text-left description", "id" : index})
+    .val(getDatafromLocStorage(index)!==null?getDatafromLocStorage(index):""));
     $divRow.append($("<div>",{"class": "col-1 align-item-center d-flex justify-content-center align-items-center saveBtn"})
     .append($("<i>", {"class": "fa fa-save my-4"})));
     $divContainer.append($divRow);
@@ -43,12 +44,7 @@ $("i").click(function(ev){
         text: $(ev.currentTarget).parent().prev().val()
     }
     
-    if(tasksArr.some(obj => obj.id === taskEl.id)){
-       tasksArr.find(obj => obj.id === taskEl.id).text = $(ev.currentTarget).parent().prev().val(); 
-    }
-    else tasksArr.push(taskEl); 
-    
-    addToLocalStorage(tasksArr);
+    addToLocalStorage(taskEl);
 
     ev.currentTarget.style.color = "black";
     $saveMessage.addClass("d-block");
@@ -59,10 +55,26 @@ $("i").click(function(ev){
         
 });
 
-function getDatafromLocStorage(){
-
+function getDatafromLocStorage(index){
+    var tasksArr = JSON.parse(localStorage.getItem("tasks"));
+        
+    if(tasksArr !== null){
+        if(tasksArr.some(obj => parseInt(obj.id) === index)){
+            return tasksArr.find(obj => parseInt(obj.id) === index).text;
+        }
+    } else return "";
+        
 }
 
-function addToLocalStorage(tasksArr){
+function addToLocalStorage(taskEl){
+    tasksArr = (JSON.parse(localStorage.getItem("tasks")) != null) ? JSON.parse(localStorage.getItem("tasks")):[];
+    if((tasksArr.some(obj => obj.id === taskEl.id))){
+        console.log("exist");
+        tasksArr.find(obj => obj.id === taskEl.id).text = taskEl.text; 
+     }
+     else {
+        tasksArr.push(taskEl);
+     }
+      
     localStorage.setItem("tasks",JSON.stringify(tasksArr));
 }
